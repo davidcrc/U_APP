@@ -19,13 +19,14 @@ GetItem (fruit_name) {
 
   componentDidMount() {
 
-    return fetch('http://localhost/app_db/FruitsList.php?al_buscar=carpio')
+    return fetch('http://192.168.1.250/app_db/FruitsList.php?al_buscar=carpio')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
           dataSource: ds.cloneWithRows(responseJson),
+        //   dataSource: ds.cloneWithRows(responseJson.movies),
         }, function() {
           // In this block you can do something with new state.
         });
@@ -60,15 +61,17 @@ GetItem (fruit_name) {
     return (
 
       <View style={styles.MainContainer}>
-
+        <Text> Lista de Alumnos </Text>
         <ListView
 
-          dataSource={this.state.dataSource}
+            dataSource={this.state.dataSource}
 
-          renderSeparator= {this.ListViewItemSeparator}
+            renderSeparator= {this.ListViewItemSeparator}
 
-          renderRow={(rowData) => <Text style={styles.rowViewContainer} 
-          onPress={this.GetItem.bind(this, rowData.Nombres)} >{rowData.Nombres}</Text>}
+            renderRow={(rowData) => 
+            <Text style={styles.rowViewContainer}  onPress={this.GetItem.bind(this, rowData.Ecuela)} >
+                {rowData.Cui} - {rowData.Nombres}  
+            </Text>}
 
         />
 
@@ -89,7 +92,7 @@ margin: 10
 },
 
    rowViewContainer: {
-        fontSize: 20,
+        fontSize: 15,
         paddingRight: 10,
         paddingTop: 10,
         paddingBottom: 10,
