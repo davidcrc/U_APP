@@ -63,9 +63,9 @@ export default class U_APP extends Component {
         return (
         <View
             style={{
-            height: .5,
-            width: "100%",
-            backgroundColor: "#000",
+                height: .5,
+                width: "100%",
+                backgroundColor: "#000",
             }}
         />
         );
