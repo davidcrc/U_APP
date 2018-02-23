@@ -10,8 +10,10 @@ export default class Register extends Component {
     constructor(props) {
  
         super(props)
-    
+            // let URL = 'http://192.168.1.250/app_db/User_Login.php'
+
         this.state = {
+            URL: 'http://192.168.5.199',
             isLoading: false,
             UserName: '',
             UserEmail: '',
@@ -25,8 +27,9 @@ export default class Register extends Component {
         const { UserName }  = this.state ;
         const { UserEmail }  = this.state ;
         const { UserPassword }  = this.state ;
+        const { URL }  = this.state ;
         
-        fetch('http://192.168.1.250/app_db/user_registration.php', {
+        fetch(URL+'/app_db/user_registration.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

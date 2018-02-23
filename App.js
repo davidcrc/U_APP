@@ -7,10 +7,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // import {  Scene,  Router,  Actions,  Stack, } from 'react-native-router-flux';
 
 export default class U_APP extends Component {
-  
+    // Setting up profile activity title.
+    static navigationOptions =
+    {
+        title: 'Busqueda por apellido',
+        
+    };
+
     constructor(props) {
+        // let URL = 'http://192.168.1.250/app_db/User_Login.php'
         super(props);
         this.state = {
+            URL: 'http://192.168.5.199',
             isLoading: true,
             text: ''
         }
@@ -38,10 +46,12 @@ export default class U_APP extends Component {
     
     getStudent = () => {
         const {text} = this.state
+        const { URL }  = this.state ;
+        
         let apellido = text
         // console.warn('haber' , apellido)
 
-        let getStudents = 'http://192.168.1.250/app_db/FruitsList.php?al_buscar='+apellido
+        let getStudents = URL+'/app_db/FruitsList.php?al_buscar='+apellido
         return fetch(getStudents)
             .then((response) => response.json())
             .then((responseJson) => {
