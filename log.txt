@@ -1,0 +1,48 @@
+{
+    "Practicas": {
+        "c_biologia": [{
+            "idcurso": "Biologia",
+            "name_course": "Biologia",
+            "question": "De las siguientes estructuras y componentes celulares :",
+            "alternative": [{
+                "#text": "Membrana plasmática"
+            }, {
+                "#text": "Citoplasma"
+            }, {
+                "#text": "Ribosomas"
+            }, {
+                "#text": "Lisosomas"
+            }, {
+                "#text": "Todas"
+            }],
+            "response": "b"
+            
+        }, {
+            "name": "New Order",
+            "listeners": "1719762",
+            "mbid": "f1106b17-dcbb-45f6-b938-199ccfab50cc",
+            "url": "https://www.last.fm/music/New+Order",
+            "streamable": "0",
+            "image": [{
+                "#text": "https://lastfm-img2.akamaized.net/i/u/34s/8369b21a2af5c2b59199af2e02b1c276.png",
+                "size": "small"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/64s/8369b21a2af5c2b59199af2e02b1c276.png",
+                "size": "medium"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/174s/8369b21a2af5c2b59199af2e02b1c276.png",
+                "size": "large"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/8369b21a2af5c2b59199af2e02b1c276.png",
+                "size": "extralarge"
+            }, {
+                "#text": "https://lastfm-img2.akamaized.net/i/u/300x300/8369b21a2af5c2b59199af2e02b1c276.png",
+                "size": "mega"
+            }]
+        }]
+    }
+}
+
+
+=============================================
+npm install --save react-native-checkbox-group
