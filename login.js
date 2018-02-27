@@ -23,7 +23,7 @@ class LoginActivity extends Component {
         
         this.state = {
             
-            URL : 'http://192.168.5.199',
+            URL : 'http://192.168.1.250',
             UserEmail: '',
             UserPassword: ''
     

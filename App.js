@@ -6,6 +6,8 @@ import { AppRegistry, StyleSheet, ActivityIndicator,
 import Icon from 'react-native-vector-icons/Ionicons';
 // import {  Scene,  Router,  Actions,  Stack, } from 'react-native-router-flux';
 
+// const data = require('./src/data/data.json');
+
 export default class U_APP extends Component {
     // Setting up profile activity title.
     static navigationOptions =
@@ -18,7 +20,7 @@ export default class U_APP extends Component {
         // let URL = 'http://192.168.1.250/app_db/User_Login.php'
         super(props);
         this.state = {
-            URL: 'http://192.168.5.199',
+            URL: 'http://192.168.1.250',
             isLoading: true,
             text: ''
         }
@@ -49,8 +51,8 @@ export default class U_APP extends Component {
         const { URL }  = this.state ;
         
         let apellido = text
-        // console.warn('haber' , apellido)
-
+        var json_fragment = data.country.town;
+        // console.warn('haber' , json_fragment)
         let getStudents = URL+'/app_db/FruitsList.php?al_buscar='+apellido
         return fetch(getStudents)
             .then((response) => response.json())

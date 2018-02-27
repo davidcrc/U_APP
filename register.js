@@ -13,7 +13,7 @@ export default class Register extends Component {
             // let URL = 'http://192.168.1.250/app_db/User_Login.php'
 
         this.state = {
-            URL: 'http://192.168.5.199',
+            URL: 'http://192.168.1.250',
             isLoading: false,
             UserName: '',
             UserEmail: '',
