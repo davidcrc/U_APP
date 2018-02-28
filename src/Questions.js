@@ -24,7 +24,7 @@ export default class Questions extends Component {
             isLoading: true,
             text: '' ,
             data : Data,
-            idCurrentCourse: 'c_biologia',           
+            idCurrentCourse: '',           
             totalQuestions: '',
             question: '',
             numQuestion: '',
@@ -42,7 +42,7 @@ export default class Questions extends Component {
     }
     static navigationOptions =
     {
-        title: 'Curso '+ 1,
+        title: 'Preguntas ',
         
     };
     GetItem (escuela) {
@@ -64,19 +64,30 @@ export default class Questions extends Component {
         // }
         // else
         
-        if (this.state.Response === this.state.currentResponse){
+    
+            if (this.state.Response === this.state.currentResponse){
 
-            Alert.alert( 'Respuesta Correcta :) ' );
-            this.setState ({
-                num_pregunta : this.state.num_pregunta ++
-                
-            })
-            console.warn('pasa ? ',num_pregunta)
-            this.props.navigation.navigate('QuestionActivity');
-        }
-        else
-            Alert.alert( 'Intenta de nuevo :/ ' );
-        
+                Alert.alert( 'Respuesta Correcta :)\nGood Job!! ' );
+                // this.setState ({
+                //     num_pregunta : this.state.num_pregunta ++
+                    
+                // })
+                // console.warn('pasa ? ',num_pregunta)
+                // if(this.props.navigation.state.params.num_p != 1)
+                if ( this.props.navigation.state.params.num_p === this.state.totalQuestions){
+                    Alert.alert( 'Haz alcanzdo el total de preguntas - en Proceso' );
+
+                    // Tal ez el boton de final deberia cambiar su aspecto
+                    // FALTA LA VARIABLE DE INTENTOS QUE AUMENTE
+                    // REVISAR LA NAVEGACION  ARA QUE NO REGRESE TAN ATRAS
+                }
+                else{                
+                    this.props.navigation.navigate('Questions', { id: this.state.idCurrentCourse, num_p: this.state.num_pregunta + 1  });
+                }
+            }
+            else
+                Alert.alert( 'Intenta de nuevo :/\nTu puedes!!' );
+    
         
     }
 
@@ -89,11 +100,11 @@ export default class Questions extends Component {
 
         // el json_fragment seria el curso para q cargue todas sus preguntas de ese curso (c_biolo)
         const {data} = this.state
-        num_pregunta = this.state.num_pregunta;
-        currentCourse = this.state.idCurrentCourse
-        
-        // currentCourse = 'c_biologia'
-
+        // num_pregunta = this.state.num_pregunta;
+        // currentCourse = this.state.idCurrentCourse
+               
+        currentCourse = this.props.navigation.state.params.id
+        num_pregunta = this.props.navigation.state.params.num_p
         // var json_fragment = data.Practicas['c_biologia'][num_pregunta]['alternative'][4];
         var total_q = data.Practicas[currentCourse][0]['total_questions'] ;
         var numq = data.Practicas[currentCourse][num_pregunta]['num_question'];
@@ -110,6 +121,7 @@ export default class Questions extends Component {
             // Alert.alert( 'Json Text',  numq  );
 
         this.setState ({
+            idCurrentCourse: currentCourse,
             totalQuestions: total_q,
             numQuestion: numq,
             nameCourse : name_c,
@@ -200,7 +212,7 @@ export default class Questions extends Component {
             </View>
                     
             <View style={styles.buttonContainer}>
-                <Button color="#3cb371" title="  Siguiente  " onPress={this.QuestionOkFunction} />
+                <Button color="#3cb371" title="  Siguiente  " onPress={ this.QuestionOkFunction} />
             </View>
 
         </View>

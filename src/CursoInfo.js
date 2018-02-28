@@ -46,15 +46,16 @@ export default class CursoInfo extends Component {
         
     }
 
-    practicasNav = () => {
+    practicasNav = (idcourse) => {
         
-        Alert.alert( 'Navegacion hacia las practicas de este curso' );
+        // Alert.alert( 'Navegacion hacia las practicas de este curso ', idcourse );
+        this.props.navigation.navigate('Questions', { id: idcourse, num_p: 1 } );
         
     }
 
     practicasOnlineNav = () => {
         
-        Alert.alert( 'Navegacion hacia las practicas ONLINE de este curso' );
+        Alert.alert( 'Navegacion hacia las practicas ONLINE de este curso - en proceso' );
     
     }
     // Manejo de radio button
@@ -81,6 +82,7 @@ export default class CursoInfo extends Component {
             // Alert.alert( 'Json Text',  numq  );
 
         this.setState ({
+            idCurrentCourse: currentCourse,
             totalQuestions: total_q,
             nameCourse : name_c,
             descripcion: desc,
@@ -116,7 +118,7 @@ export default class CursoInfo extends Component {
                     
             <View style={styles.buttonContainer}>
                 <View style={styles.iconContainer} >   
-                    <Button color="#1e90ff" title="  Practicas  " onPress={this.practicasNav} />
+                    <Button color="#1e90ff" title="  Practicas  " onPress={ () => this.practicasNav(this.state.idCurrentCourse) } />
                 </View>
     
                 <View style={styles.iconContainer} >   

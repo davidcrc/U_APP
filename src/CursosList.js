@@ -11,7 +11,6 @@ export default class LoginView extends Component {
     
         this.state = {
             id: '',
-        //   TextInputValueHolder: ' - Deberia haber un login con facebook! - '
     
         }
     
