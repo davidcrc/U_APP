@@ -10,16 +10,17 @@ export default class LoginView extends Component {
         super(props)
     
         this.state = {
-    
+            id: '',
         //   TextInputValueHolder: ' - Deberia haber un login con facebook! - '
     
         }
     
       }
-    handlePress = (data) => {
+    handlePress = (idcourse) => {
     // const { TextInputValueHolder }  = this.state ;
     
-        Alert.alert('Toma el value='+data)
+        // Alert.alert('Toma el value='+idcourse)
+        this.props.navigation.navigate('CursoInfo', { id: idcourse } );
     
         // Actions.home()
     }
@@ -130,12 +131,12 @@ const styles = StyleSheet.create({
     },
     curso: {
         fontWeight: '500',
-        // color: 'red',
+        color: 'maroon',
 
     },
     logo: {
-        width: 60,
-        height: 60,
+        width: 70,
+        height: 70,
         marginBottom: 15,
     },
 

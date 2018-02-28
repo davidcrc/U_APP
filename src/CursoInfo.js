@@ -6,16 +6,12 @@ import { AppRegistry, StyleSheet, ActivityIndicator,
     ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-// import {  Scene,  Router,  Actions,  Stack, } from 'react-native-router-flux';
-import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
-import { StackNavigator } from 'react-navigation';
+// import { StackNavigator } from 'react-navigation';
 import Data from './data/data.json';
 
-class U_APP extends Component {
-    // Setting up profile activity title.
+export default class CursoInfo extends Component {
     
-
     constructor(props) {
         
         super(props);
@@ -23,26 +19,19 @@ class U_APP extends Component {
         this.state = {
             // URL: 'http://192.168.1.250',
             isLoading: true,
-            text: '' ,
             data : Data,
+            text: '' ,
             totalQuestions: '',
-            question: '',
-            numQuestion: '',
-            nameCourse:'',
-            Response: '',
-            currentResponse: '',
-            Alt1 : '',
-            Alt2 : '',
-            Alt3 : '',
-            Alt4 : '',
-            Alt5 : '',
-            num_pregunta: 1,
-            num_intentos: 0,
+            nameCourse: '',
+            descripcion: '',
+            idCurrentCourse: '' ,
+
         }
     }
+    // Setting up profile activity title.
     static navigationOptions =
     {
-        title: 'Curso '+ 1,
+        title: 'Curso :',
         
     };
     GetItem (escuela) {
@@ -57,29 +46,17 @@ class U_APP extends Component {
         
     }
 
-    QuestionOkFunction = () => {
-        // const {Response} = this.state
-        // if (this.state.Response === ''){
-        //     Alert.alert( 'Por favor, seleccione una opcion' );
-        // }
-        // else
+    practicasNav = () => {
         
-        if (this.state.Response === this.state.currentResponse){
-
-            Alert.alert( 'Respuesta Correcta :) ' );
-            this.setState ({
-                num_pregunta : this.state.num_pregunta ++
-                
-            })
-            console.warn('pasa ? ',num_pregunta)
-            this.props.navigation.navigate('QuestionActivity');
-        }
-        else
-            Alert.alert( 'Intenta de nuevo :/ ' );
-        
+        Alert.alert( 'Navegacion hacia las practicas de este curso' );
         
     }
 
+    practicasOnlineNav = () => {
+        
+        Alert.alert( 'Navegacion hacia las practicas ONLINE de este curso' );
+    
+    }
     // Manejo de radio button
     handleOnPress(value){
         this.setState({value:value})
@@ -89,64 +66,33 @@ class U_APP extends Component {
 
         // el json_fragment seria el curso para q cargue todas sus preguntas de ese curso (c_biolo)
         const {data} = this.state
-        num_pregunta = this.state.num_pregunta;
-        currentCourse = 'c_biologia'
+        // this.props.id
+        // Alert.alert( 'Json Text',  this.props.navigation.state.params.id  );
+        // this.setState ({
+        //     idCurrentCourse: this.props.navigation.state.params.id
+        // })
+        currentCourse = this.props.navigation.state.params.id
         // var json_fragment = data.Practicas['c_biologia'][num_pregunta]['alternative'][4];
         var total_q = data.Practicas[currentCourse][0] ;
-        var numq = data.Practicas[currentCourse][num_pregunta]['num_question'];
-        var name_c = data.Practicas[currentCourse][num_pregunta]['name_course'];
-        var pregunta = data.Practicas[currentCourse][num_pregunta]['question'];
-        var respuesta = data.Practicas[currentCourse][num_pregunta]['response'];
-        var alt0 = data.Practicas[currentCourse][num_pregunta]['alternative'][0];
-        var alt1 = data.Practicas[currentCourse][num_pregunta]['alternative'][1];
-        var alt2 = data.Practicas[currentCourse][num_pregunta]['alternative'][2];
-        var alt3 = data.Practicas[currentCourse][num_pregunta]['alternative'][3];
-        var alt4 = data.Practicas[currentCourse][num_pregunta]['alternative'][4];
+        var name_c = data.Practicas[currentCourse][0]['name_course'];
+        var desc = data.Practicas[currentCourse][0]['descripcion']
         // console.warn('haber' , json_fragment)
         
             // Alert.alert( 'Json Text',  numq  );
 
         this.setState ({
             totalQuestions: total_q,
-            numQuestion: numq,
             nameCourse : name_c,
-            question: pregunta,
-            Response: respuesta,
-            Alt1: alt0,
-            Alt2: alt1,
-            Alt3: alt2,
-            Alt4: alt3,
-            Alt5: alt4,
+            descripcion: desc,
             isLoading: false,
         })
     }
 
-
-    onSelect(index, value){
-        this.setState({
-            // text: `Selected index: ${index} , value: ${value}`,
-            currentResponse: `${value}`,
-            
-        })
-        // Alert.alert( 'valor es : ',  this.state.currentResponse  );
-    }
-
-    ListViewItemSeparator = () => {
-        return (
-        <View
-            style={{
-                height: .5,
-                width: "100%",
-                backgroundColor: "#000",
-            }}
-        />
-        );
-    }
-
     render() {
+
     if (this.state.isLoading) {
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
+        <View style={{flex: 1, paddingTop: 30}}>
             <ActivityIndicator />
         </View>
       );
@@ -161,18 +107,23 @@ class U_APP extends Component {
             </View>
             
             <ScrollView>
-                <Text style={{fontSize:96}}>Scroll me plz</Text>
+                <Text style={ styles.descriptionContainer }> {this.state.descripcion} </Text>
                 
-                <Text style={{fontSize:80}}>React Native</Text>
             </ScrollView>
             
             <View style={{  height: .6 ,  width: "80%", backgroundColor: "#000",  }} />
 
-            
                     
             <View style={styles.buttonContainer}>
-                <Button color="#3cb371" title="  Practicas  " onPress={this.QuestionOkFunction} />
-                <Button color="#3cb371" title="  Online++  " onPress={this.QuestionOkFunction} />
+                <View style={styles.iconContainer} >   
+                    <Button color="#1e90ff" title="  Practicas  " onPress={this.practicasNav} />
+                </View>
+    
+                <View style={styles.iconContainer} >   
+                
+                    <Button color="#ff6347" title="  Online++  " onPress={this.practicasOnlineNav} />
+                </View>
+
             </View>
 
         </View>
@@ -180,25 +131,25 @@ class U_APP extends Component {
   }
 }
 
-const MainProject = StackNavigator( {
-    // First: { screen: LoginActivity },
-    // Second: { screen: ProfileActivity },
-    // register: { screen: Register },
-    QuestionActivity: { screen: U_APP },
+// const MainProject = StackNavigator( {
+//     // First: { screen: LoginActivity },
+//     // Second: { screen: ProfileActivity },
+//     // register: { screen: Register },
+//     QuestionActivity: { screen: U_APP },
 
-});
+// });
 
-const AppNavigation = () => (
-    <MainProject  />
-);
+// const AppNavigation = () => (
+//     <MainProject  />
+// );
   
-export default class App extends Component {
-    render() {
-      return (
-          <AppNavigation/>
-      );
-    }
-}
+// export default class App extends Component {
+//     render() {
+//         return (
+//             <AppNavigation/>
+//         );
+//     }
+// }
 
 const styles = StyleSheet.create({
 
@@ -240,7 +191,7 @@ const styles = StyleSheet.create({
         textAlign: 'right',
 
     },
-    questionContainer: {
+    descriptionContainer: {
         flex: 1,
         paddingHorizontal: 40,
         // backgroundColor: 'white',
@@ -266,10 +217,15 @@ const styles = StyleSheet.create({
         // flex: 1,
         // position: 'absolute',
         flexDirection: 'row',
-        
+        // margin: 100,
+        // justifyContent: 'space-between',
+        marginHorizontal: 10,
         marginTop: 20,
         marginBottom: 10,
 
     },
-
+    iconContainer: {
+        flex:1,
+        alignItems: 'center',
+    },
 });

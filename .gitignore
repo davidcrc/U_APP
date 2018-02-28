@@ -53,3 +53,16 @@ buck-out/
 */fastlane/screenshots
 android/app/src/main/assets/index.android.bundle
 android/app/src/main/assets/index.android.bundle.meta
+src/imgs/inicio2.png
+src/data/data.json
+src/imgs/academia.png
+src/imgs/astrologia.png
+src/imgs/back.jpg
+src/imgs/background.jpg
+src/imgs/biologia.png
+src/imgs/fisica.png
+src/imgs/geografia.png
+src/imgs/inicio.png
+src/imgs/matematica.png
+src/imgs/quimica.png
+src/data/data.json

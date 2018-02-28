@@ -11,7 +11,7 @@ import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 import { StackNavigator } from 'react-navigation';
 import Data from './data/data.json';
 
-class U_APP extends Component {
+export default class Questions extends Component {
     // Setting up profile activity title.
     
 
@@ -24,6 +24,7 @@ class U_APP extends Component {
             isLoading: true,
             text: '' ,
             data : Data,
+            idCurrentCourse: 'c_biologia',           
             totalQuestions: '',
             question: '',
             numQuestion: '',
@@ -89,9 +90,12 @@ class U_APP extends Component {
         // el json_fragment seria el curso para q cargue todas sus preguntas de ese curso (c_biolo)
         const {data} = this.state
         num_pregunta = this.state.num_pregunta;
-        currentCourse = 'c_biologia'
+        currentCourse = this.state.idCurrentCourse
+        
+        // currentCourse = 'c_biologia'
+
         // var json_fragment = data.Practicas['c_biologia'][num_pregunta]['alternative'][4];
-        var total_q = data.Practicas[currentCourse][0] ;
+        var total_q = data.Practicas[currentCourse][0]['total_questions'] ;
         var numq = data.Practicas[currentCourse][num_pregunta]['num_question'];
         var name_c = data.Practicas[currentCourse][num_pregunta]['name_course'];
         var pregunta = data.Practicas[currentCourse][num_pregunta]['question'];
@@ -204,25 +208,6 @@ class U_APP extends Component {
   }
 }
 
-const MainProject = StackNavigator( {
-    // First: { screen: LoginActivity },
-    // Second: { screen: ProfileActivity },
-    // register: { screen: Register },
-    QuestionActivity: { screen: U_APP },
-
-});
-
-const AppNavigation = () => (
-    <MainProject  />
-);
-  
-export default class App extends Component {
-    render() {
-      return (
-          <AppNavigation/>
-      );
-    }
-}
 
 const styles = StyleSheet.create({
 

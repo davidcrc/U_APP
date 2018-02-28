@@ -4,7 +4,10 @@ import {  StyleSheet, View, Text,
         Image, ImageBackground,
         TouchableOpacity , } from 'react-native';
 
-export default class LoginView extends Component {
+import { StackNavigator } from 'react-navigation';
+import CursosList from './CursosList'
+        
+export default class InitActivity extends Component {
     constructor(props) {
 
         super(props)
@@ -19,11 +22,14 @@ export default class LoginView extends Component {
     handlePress = () => {
     // const { TextInputValueHolder }  = this.state ;
     
-        Alert.alert('Mover a CursosList')
-    
+        // Alert.alert('Mover a CursosList')
+        this.props.navigation.navigate('CursosList');
         // Actions.home()
     }
-
+    SocialNet = (Socialnet) => {
+        Alert.alert('Red Social ', Socialnet)
+        
+    }
     render() {
         return (
             <ImageBackground source={require('./imgs/inicio2.png') } style={styles.container}>
@@ -41,9 +47,9 @@ export default class LoginView extends Component {
                 </View>
 
                 <View style = {styles.infoLink}>
-                    <Button color="#841584" title="Facebook" onPress={this.handlePress} />
-                    <Button color="#841584" title="Web" onPress={this.handlePress} />
-                    <Button color="#841584" title="Acerca.." onPress={this.handlePress} />
+                    <Button color="#841584" title="Facebook" onPress={() => this.SocialNet('facebook')} />
+                    <Button color="#841584" title="Web" onPress={() => this.SocialNet('Pagina web')} />
+                    <Button color="#841584" title="Acerca.." onPress={() => this.SocialNet('Web about')} />
                     
                 </View>
 
@@ -56,6 +62,7 @@ export default class LoginView extends Component {
         );
   }
 }
+
 
 const styles = StyleSheet.create({
     container: {
