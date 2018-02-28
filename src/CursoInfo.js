@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { AppRegistry, StyleSheet, ActivityIndicator, 
     ListView, Text, View, 
-    Alert, TextInput, Button, CheckBox } from 'react-native';
+    Alert, TextInput, Button, 
+    ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 // import {  Scene,  Router,  Actions,  Stack, } from 'react-native-router-flux';
@@ -156,47 +157,22 @@ class U_APP extends Component {
 
             <View  style={styles.curso}>
                 <Text style={styles.nameCourseText} > {this.state.nameCourse} </Text>
-                        
-                <Text style={styles.intentosText} > - Int: {this.state.num_intentos} </Text>
 
             </View>
             
-            <View style={styles.questionContainer} >
-                <Text style={styles.QuestionText}> {this.state.numQuestion}.- {this.state.question} </Text>
-            </View>
+            <ScrollView>
+                <Text style={{fontSize:96}}>Scroll me plz</Text>
+                
+                <Text style={{fontSize:80}}>React Native</Text>
+            </ScrollView>
             
             <View style={{  height: .6 ,  width: "80%", backgroundColor: "#000",  }} />
 
-            <View style={styles.alternativeContainer} >
-
-                <RadioGroup  onSelect = {(index, value) => this.onSelect(index, value)}  
-                    size={18} color='#3cb371' highlightColor='#ccc8b9' activeColor='red' >
-                    
-                    <RadioButton value={'a'} >
-                        <Text>  {this.state.Alt1} </Text>
-                    </RadioButton>
             
-                    <RadioButton value={'b'}>
-                        <Text>  {this.state.Alt2} </Text>
-                    </RadioButton>
-            
-                    <RadioButton value={'c'}>
-                        <Text>  {this.state.Alt3} </Text>
-                    </RadioButton>
-
-                    <RadioButton value={'d'}>
-                        <Text>  {this.state.Alt4} </Text>
-                    </RadioButton>
-
-                    <RadioButton value={'e'}>
-                        <Text>  {this.state.Alt5} </Text>
-                    </RadioButton>
-                </RadioGroup>
-                
-            </View>
                     
             <View style={styles.buttonContainer}>
-                <Button color="#3cb371" title="  Siguiente  " onPress={this.QuestionOkFunction} />
+                <Button color="#3cb371" title="  Practicas  " onPress={this.QuestionOkFunction} />
+                <Button color="#3cb371" title="  Online++  " onPress={this.QuestionOkFunction} />
             </View>
 
         </View>
@@ -289,6 +265,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         // flex: 1,
         // position: 'absolute',
+        flexDirection: 'row',
         
         marginTop: 20,
         marginBottom: 10,
