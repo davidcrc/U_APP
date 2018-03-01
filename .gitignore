@@ -66,3 +66,13 @@ src/imgs/inicio.png
 src/imgs/matematica.png
 src/imgs/quimica.png
 src/data/data.json
+android/app/src/main/res/drawable-mdpi/src_imgs_fisica.png
+android/app/src/main/res/drawable-mdpi/src_imgs_academia.png
+android/app/src/main/res/drawable-mdpi/src_imgs_astrologia.png
+android/app/src/main/res/drawable-mdpi/src_imgs_back.jpg
+android/app/src/main/res/drawable-mdpi/src_imgs_biologia.png
+android/app/src/main/res/drawable-mdpi/src_imgs_geografia.png
+android/app/src/main/res/drawable-mdpi/src_imgs_inicio2.png
+android/app/src/main/res/drawable-mdpi/src_imgs_matematica.png
+android/app/src/main/res/drawable-mdpi/src_imgs_quimica.png
+src/data/data.json

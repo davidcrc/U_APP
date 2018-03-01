@@ -10,13 +10,16 @@ import Inicio from './Inicio'
 import CursosList from './CursosList'
 import CursoInfo from './CursoInfo'
 import Questions from './Questions'
+import PlusPractice from './PlusPractice'
+import QuestionsOnline from './QuestionsOnline';
 
 const MainProject = StackNavigator( {
     First: { screen: Inicio },
     CursosList: { screen: CursosList },
     CursoInfo: { screen: CursoInfo },
     Questions: { screen: Questions },
-    // register: { screen: Register },
+    PlusPractice: { screen: PlusPractice },
+    QuestionsOnline: { screen: QuestionsOnline },
 
 });
 
@@ -27,7 +30,7 @@ const AppNavigation = () => (
 export default class App extends Component {
     render() {
       return (
-          <AppNavigation/>
+            <AppNavigation/>
       );
     }
 }

@@ -4,13 +4,12 @@ import { AppRegistry, StyleSheet, ActivityIndicator,
     ListView, Text, View, 
     Alert, TextInput, Button, CheckBox } from 'react-native';
 
-
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
 import { StackNavigator } from 'react-navigation';
 import Data from './data/data.json';
 
-export default class Questions extends Component {
+export default class QuestionsOnline extends Component {
     // Setting up profile activity title.
     
 
@@ -93,7 +92,7 @@ export default class Questions extends Component {
         }
         else{
             // Podria deseleccionarse la opcion q ya selecciono ..
-            Alert.alert( 'Intenta de nuevo :/' , 'Tu puedes !!!' );
+            Alert.alert( 'Intenta de nuevo :/' , 'Tu puedes!!' );
             this.setState ({
                 num_intentos : this.state.num_intentos + 1
             })
@@ -128,7 +127,8 @@ export default class Questions extends Component {
         // num_pregunta = this.state.num_pregunta;
         // currentCourse = this.state.idCurrentCourse
                
-        currentCourse = this.props.navigation.state.params.id       //  se refiere al nombre
+        currentCourse = this.props.navigation.state.params.nameid       // se refiere al nombre: c_biolo
+        
         num_pregunta = this.props.navigation.state.params.num_p
         num_intento = this.props.navigation.state.params.num_int
         finaly = this.props.navigation.state.params.final

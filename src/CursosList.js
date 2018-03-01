@@ -10,18 +10,17 @@ export default class LoginView extends Component {
         super(props)
     
         this.state = {
-            id: '',
+            id: -1,
     
         }
     
       }
-    handlePress = (idcourse) => {
+    handlePress = (idcourse, namecurse) => {
     // const { TextInputValueHolder }  = this.state ;
     
         // Alert.alert('Toma el value='+idcourse)
-        this.props.navigation.navigate('CursoInfo', { id: idcourse } );
-    
-        // Actions.home()
+        this.props.navigation.navigate('CursoInfo', { id: idcourse, namecourse: namecurse } );
+
     }
 
     render() {
@@ -33,7 +32,7 @@ export default class LoginView extends Component {
                 <View style={styles.parImgns} >
 
                     <View style={styles.imgText} >
-                        <TouchableOpacity onPress={() => this.handlePress('c_quimica')} >
+                        <TouchableOpacity onPress={() => this.handlePress(2,'c_quimica')} >
                             <Image source={require('./imgs/quimica.png')} style={styles.logo} />
                         </TouchableOpacity >
                         <Text style={styles.curso} > Quimica</Text>
@@ -41,7 +40,7 @@ export default class LoginView extends Component {
                     
                     <View style={styles.imgText}>
                     
-                        <TouchableOpacity onPress={() => this.handlePress('c_biologia')} >
+                        <TouchableOpacity onPress={() => this.handlePress(1,'c_biologia')} >
                             <Image source={require('./imgs/biologia.png')} style={styles.logo} />
                         </TouchableOpacity >
                         <Text style={styles.curso} > Biologia</Text>
@@ -53,7 +52,7 @@ export default class LoginView extends Component {
                 <View style={styles.parImgns} >
                     
                     <View style={styles.imgText} >
-                        <TouchableOpacity onPress={ () => this.handlePress('c_matematica')} >
+                        <TouchableOpacity onPress={ () => this.handlePress(3,'c_matematica')} >
                             <Image source={require('./imgs/matematica.png')} style={styles.logo} />
                         </TouchableOpacity >
                         <Text style={styles.curso} > matematica</Text>
@@ -61,7 +60,7 @@ export default class LoginView extends Component {
                     
                     <View style={styles.imgText}>
                     
-                        <TouchableOpacity onPress={() => this.handlePress('c_geografia')} >
+                        <TouchableOpacity onPress={() => this.handlePress(4,'c_geografia')} >
                             <Image source={require('./imgs/geografia.png')} style={styles.logo} />
                         </TouchableOpacity >
                         <Text style={styles.curso} > geografia</Text>
@@ -72,7 +71,7 @@ export default class LoginView extends Component {
                 <View style={styles.parImgns} >
                     
                     <View style={styles.imgText} >
-                        <TouchableOpacity onPress={() => this.handlePress('c_fisica')} >
+                        <TouchableOpacity onPress={() => this.handlePress(5,'c_fisica')} >
                             <Image source={require('./imgs/fisica.png')} style={styles.logo} />
                         </TouchableOpacity >
                         <Text style={styles.curso} > Fisica</Text>
@@ -80,10 +79,10 @@ export default class LoginView extends Component {
                     
                     <View style={styles.imgText}>
                     
-                        <TouchableOpacity onPress={() => this.handlePress('c_astrologia')} >
+                        <TouchableOpacity onPress={() => this.handlePress(6,'c_ingles')} >
                             <Image source={require('./imgs/astrologia.png')} style={styles.logo} />
                         </TouchableOpacity >
-                        <Text style={styles.curso} > astrologia</Text>
+                        <Text style={styles.curso} > Ingles</Text>
 
                     </View >
                 </View>

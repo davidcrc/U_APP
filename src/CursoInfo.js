@@ -20,6 +20,7 @@ export default class CursoInfo extends Component {
             // URL: 'http://192.168.1.250',
             isLoading: true,
             data : Data,
+            id: -1,
             text: '' ,
             totalQuestions: '',
             nameCourse: '',
@@ -49,19 +50,21 @@ export default class CursoInfo extends Component {
     practicasNav = (idcourse) => {
         
         // Alert.alert( 'Navegacion hacia las practicas de este curso ', idcourse );
-        this.props.navigation.navigate('Questions', { id: idcourse, num_p: 1 } );
+        this.props.navigation.navigate('Questions', { id: idcourse, num_p: 1, num_int: 0, final: false } );
         
     }
 
-    practicasOnlineNav = () => {
+    practicasOnlineNav = (idC) => {
         
-        Alert.alert( 'Navegacion hacia las practicas ONLINE de este curso - en proceso' );
+        // Alert.alert( 'Navegacion hacia las practicas ONLINE de este curso - en proceso' );
+        this.props.navigation.navigate('PlusPractice', { id: idC, namecourse: this.state.idCurrentCourse } );
     
     }
+
     // Manejo de radio button
-    handleOnPress(value){
-        this.setState({value:value})
-    }
+    // handleOnPress(value){
+    //     this.setState({value:value})
+    // }
 
     json_curso = () => {
 
@@ -72,7 +75,8 @@ export default class CursoInfo extends Component {
         // this.setState ({
         //     idCurrentCourse: this.props.navigation.state.params.id
         // })
-        currentCourse = this.props.navigation.state.params.id
+        idC = this.props.navigation.state.params.id     // se refiere al numero
+        currentCourse = this.props.navigation.state.params.namecourse
         // var json_fragment = data.Practicas['c_biologia'][num_pregunta]['alternative'][4];
         var total_q = data.Practicas[currentCourse][0] ;
         var name_c = data.Practicas[currentCourse][0]['name_course'];
@@ -82,6 +86,7 @@ export default class CursoInfo extends Component {
             // Alert.alert( 'Json Text',  numq  );
 
         this.setState ({
+            id: idC,
             idCurrentCourse: currentCourse,
             totalQuestions: total_q,
             nameCourse : name_c,
@@ -123,7 +128,7 @@ export default class CursoInfo extends Component {
     
                 <View style={styles.iconContainer} >   
                 
-                    <Button color="#ff6347" title="  Online++  " onPress={this.practicasOnlineNav} />
+                    <Button color="#ff6347" title="  Online++  " onPress={() => this.practicasOnlineNav(this.state.id) } />
                 </View>
 
             </View>
