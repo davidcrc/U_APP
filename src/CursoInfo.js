@@ -3,11 +3,8 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, ActivityIndicator, 
     ListView, Text, View, 
     Alert, TextInput, Button, 
-    ScrollView } from 'react-native';
+    ScrollView, ImageBackground } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Ionicons';
-
-// import { StackNavigator } from 'react-navigation';
 import Data from './data/data.json';
 
 export default class CursoInfo extends Component {
@@ -106,7 +103,7 @@ export default class CursoInfo extends Component {
     }
     return (
         
-        <View style={styles.container}>
+        <ImageBackground source={require('./imgs/infobooks.png') } style={styles.container}>
 
             <View  style={styles.curso}>
                 <Text style={styles.nameCourseText} > {this.state.nameCourse} </Text>
@@ -133,7 +130,7 @@ export default class CursoInfo extends Component {
 
             </View>
 
-        </View>
+        </ImageBackground>
     );
   }
 }

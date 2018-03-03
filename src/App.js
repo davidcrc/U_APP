@@ -51,7 +51,7 @@ export default class U_APP extends Component {
         const { URL }  = this.state ;
         
         let apellido = text
-        var json_fragment = data.country.town;
+        // var json_fragment = data.country.town;
         // console.warn('haber' , json_fragment)
         let getStudents = URL+'/app_db/FruitsList.php?al_buscar='+apellido
         return fetch(getStudents)
@@ -64,6 +64,8 @@ export default class U_APP extends Component {
                     //   dataSource: ds.cloneWithRows(responseJson.movies),
                 }, function() {
                 // In this block you can do something with new state.
+                    console.warn('haber' , responseJson)
+                
                 });
             })
             .catch((error) => {

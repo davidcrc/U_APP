@@ -68,7 +68,7 @@ export default class Register extends Component {
 
     return (
     // FALTA COMO COMPROBAR QUE ES UN EMAIL Y SIN CARACTERES RAROS
-    <ImageBackground source={require('./src/imgs/register.png') } style={styles.MainContainer}>
+    <ImageBackground source={require('./imgs/register.png') } style={styles.MainContainer}>
         
         <Text style= {styles.titulo}>Formulario de Registro</Text>
   

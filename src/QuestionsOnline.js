@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 
 import { AppRegistry, StyleSheet, ActivityIndicator, 
     ListView, Text, View, 
-    Alert, TextInput, Button, CheckBox } from 'react-native';
+    Alert, TextInput, Button, 
+    CheckBox, ImageBackground } from 'react-native';
 
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
-import { StackNavigator } from 'react-navigation';
-import Data from './data/data.json';
-
 export default class QuestionsOnline extends Component {
     // Setting up profile activity title.
-    
 
     constructor(props) {
         
@@ -21,7 +18,7 @@ export default class QuestionsOnline extends Component {
             // URL: 'http://192.168.1.250',
             isLoading: true,
             text: '' ,
-            data : Data,
+            data : '{}' ,
             idCurrentCourse: '',           
             totalQuestions: 0,
             question: '',
@@ -57,18 +54,8 @@ export default class QuestionsOnline extends Component {
     }
 
     QuestionOkFunction = () => {
-
      
         if (this.state.Response === this.state.currentResponse){
-
-            // this.setState ({
-                //     num_pregunta : this.state.num_pregunta ++
-                
-                // })
-                // console.warn('pasa ? ',num_pregunta)
-                // if(this.props.navigation.state.params.num_p != 1)
-
-
                 // REVISAR LA NAVEGACION  ARA QUE NO REGRESE TAN ATRAS
 
             Alert.alert( 'Respuesta Correcta :)', 'Good Job!!' );
@@ -80,9 +67,10 @@ export default class QuestionsOnline extends Component {
             }
 
             if( !this.state.isfinal ){
-                this.props.navigation.navigate('Questions', 
+                this.props.navigation.navigate('QuestionsOnline', 
                 { 
-                    id: this.state.idCurrentCourse, 
+                    data: this.state.data,
+                    nameid: this.state.idCurrentCourse, 
                     num_p: this.state.num_pregunta + 1,
                     num_int : this.state.num_intentos + 1,
                     final:  truefinal,
@@ -100,13 +88,13 @@ export default class QuestionsOnline extends Component {
   
     }
 
-    ListCurso_Online = () => {
+    optionPracticeCourse = () => {
         // Alert.alert( 'Final' ,'Curso o Online , elige' );
         Alert.alert(
             'Info',
-            'Si deseas mas practica puedes ver otro curso, o ir a practicas online.',
+            'Muy bien!!! puedes seguir practicando en mas cursos :) ',
             [
-              {text: '+ Practicas', onPress: () => console.log('Ask me later pressed')},
+            //   {text: '+ Practicas', onPress: () => console.log('Ask me later pressed')},
               
               {text: 'Ver Cursos', onPress: () => this.props.navigation.navigate('CursosList') },
             ],
@@ -115,15 +103,11 @@ export default class QuestionsOnline extends Component {
         
     }
 
-    // Manejo de radio button
-    handleOnPress(value){
-        this.setState({value:value})
-    }
-
     json_curso = () => {
 
         // el json_fragment seria el curso para q cargue todas sus preguntas de ese curso (c_biolo)
-        const {data} = this.state
+        // const {data} = this.props.navigation.state.params.Data
+        data = this.props.navigation.state.params.data
         // num_pregunta = this.state.num_pregunta;
         // currentCourse = this.state.idCurrentCourse
                
@@ -148,6 +132,7 @@ export default class QuestionsOnline extends Component {
             // Alert.alert( 'Json Text',  numq  );
 
         this.setState ({
+            data: data,
             idCurrentCourse: currentCourse,
             totalQuestions: total_q,
             numQuestion: numq,
@@ -191,13 +176,13 @@ export default class QuestionsOnline extends Component {
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
-            <ActivityIndicator />
+            <ActivityIndicator size="large" />
         </View>
       );
     }
     return (
         
-        <View style={styles.container}>
+        <ImageBackground source={require('./imgs/questions.png') } style={styles.container}>
 
             <View  style={styles.curso}>
                 <Text style={styles.nameCourseText} > 
@@ -247,13 +232,13 @@ export default class QuestionsOnline extends Component {
                 {
                     
                     this.state.isfinal ?
-                    <Button color="red" title="    Siguiente    " onPress={ this.ListCurso_Online} />:
+                    <Button color="red" title="    Siguiente    " onPress={ this.optionPracticeCourse} />:
                     <Button color="#3cb371"  title="    Siguiente    " onPress={ this.QuestionOkFunction} />
 
                 }
             </View>
 
-        </View>
+        </ImageBackground>
     );
   }
 }

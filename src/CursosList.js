@@ -14,7 +14,13 @@ export default class LoginView extends Component {
     
         }
     
-      }
+    }
+     // Setting up profile activity title.
+     static navigationOptions =
+     {
+         title: 'Lista de Cursos : ',
+         
+     };
     handlePress = (idcourse, namecurse) => {
     // const { TextInputValueHolder }  = this.state ;
     
@@ -25,9 +31,9 @@ export default class LoginView extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('./imgs/back.jpg') } style={styles.container}>
+            <ImageBackground source={require('./imgs/back3.jpg') } style={styles.container}>
 
-                <Text style={styles.welcome} > Lista de Cursos </Text>
+                {/* <Text style={styles.welcome} > Lista de Cursos </Text> */}
                 
                 <View style={styles.parImgns} >
 
@@ -133,8 +139,8 @@ const styles = StyleSheet.create({
 
     },
     logo: {
-        width: 70,
-        height: 70,
+        width: 75,
+        height: 75,
         marginBottom: 15,
     },
 

@@ -76,3 +76,5 @@ android/app/src/main/res/drawable-mdpi/src_imgs_inicio2.png
 android/app/src/main/res/drawable-mdpi/src_imgs_matematica.png
 android/app/src/main/res/drawable-mdpi/src_imgs_quimica.png
 src/data/data.json
+src/data/online.json
+src/data/data.json

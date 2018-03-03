@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, ActivityIndicator, 
     ListView, Text, View, 
     Alert, TextInput, TouchableOpacity } from 'react-native';
-// import Icon from 'react-native-vector-icons/Ionicons';
+
 
 export default class PlusPractice extends Component {
     // Setting up profile activity title.
@@ -19,39 +19,100 @@ export default class PlusPractice extends Component {
         this.state = {
             URL: 'http://192.168.1.250',
             pss: '',
+            Data: '{}',
             namecourse: '',
             isLoading: true,
             text: ''
         }
     }
-    GetItem (id,passP) {
-
-        if ( passP === ''){
-            // Alert.alert( "Sin password - pasar directamente" );
-            this.props.navigation.navigate('QuestionsOnline', {nameid: this.state.namecourse, num_p: 1, num_int: 0, final: false} )
-        }
-            
-        else        
-        {
-            if( passP === this.state.text ){
-                // Alert.alert( "Password - coincide , dejar pasar" );
-                this.props.navigation.navigate('QuestionsOnline', {nameid: this.state.namecourse, num_p: 1, num_int: 0, final: false})
-            }
-            else{
-                Alert.alert( "Info", "Contraseña incorreta, escriba la contraseña correcta!!"  );
-                
-            }
-        }   
-        
-    }
-
     componentDidMount() {
         
         this.getPractices()
         
     }
 
-    
+    goPractice = () => {
+        // console.warn("lo q voy a enviar", this.state.Data)      // hasta q no haiga data , no se puede enviar
+        this.props.navigation.navigate('QuestionsOnline', {
+            data: this.state.Data, nameid: this.state.namecourse, num_p: 1, num_int: 0, final: false} )
+    }
+
+    GetItem (idPractica,idCurso,passP) {
+
+        // setear la varibale data con el Json de la Bd(consulta con idPractica) y enviarlo a atraves Data
+        
+        if ( passP === ''){
+            this.getDataPractice(idPractica)        
+            Alert.alert(
+                'Info',
+                'Practica sin Contraseña :\nPresiona aceptar para ir a esta Practica o Cancelar ',
+                [
+                  {text: 'Cancelar', onPress: () => console.log('')},
+                  
+                  {text: 'Aceptar', onPress: () => this.goPractice() },
+                ],
+                { cancelable: true }
+            )
+            
+        }  
+        else        
+        {
+            if( passP === this.state.text ){
+                this.getDataPractice(idPractica)        
+                Alert.alert(
+                    'Info',
+                    'Presiona aceptar para ir a esta Practica o Cancelar ',
+                    [
+                    {text: 'Cancelar', onPress: () => console.log('')},
+                    
+                    {text: 'Aceptar', onPress: () => this.goPractice() },
+                    ],
+                    { cancelable: true }
+                )
+                
+            }
+            else{
+                Alert.alert( "Info", "Contraseña incorreta, Por favor escriba la contraseña correcta!!"  );
+                
+            }
+        }   
+        
+    }
+    getDataPractice (idPractica) {
+        // const {text} = this.state
+        const { URL }  = this.state ;
+        
+        // let apellido = text
+        // var json_fragment = data.country.town;
+        // console.warn('haber' , json_fragment)
+        // idcourse = this.props.navigation.state.params.id
+        // var nameCourse = this.props.navigation.state.params.namecourse
+        // namecurrentcourse = 'c_biologia'
+        idP = parseInt((idPractica) , 10 )
+        
+        let getDataPractic = URL+'/app_db/getDataPractice.php?prtc_id='+idP
+        return fetch(getDataPractic)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState({
+                isLoading: false,
+                Data: responseJson
+                // pss: responseJson[0]['pass'],
+                //   dataSource: ds.cloneWithRows(responseJson.movies),
+            }, function() {
+            // In this block you can do something with new state.
+                // console.warn('haber' , responseJson[0]['pass']) 
+            
+            });
+
+
+        }).catch((error) => {
+                console.error(error);
+                // Alert.alert("No se pudo obtener conexion al servidor");
+                
+        });
+    }
+
     getPractices = () => {
         const {text} = this.state
         const { URL }  = this.state ;
@@ -105,7 +166,7 @@ export default class PlusPractice extends Component {
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
-            <ActivityIndicator />
+            <ActivityIndicator size="large" />
         </View>
       );
     }
@@ -136,7 +197,8 @@ export default class PlusPractice extends Component {
             renderRow={(rowData) => { 
                 return (
                     <TouchableOpacity>
-                        <Text style={styles.rowViewContainer}  onPress={this.GetItem.bind(this, rowData.idcurso, rowData.pass)} >
+                        <Text style={styles.rowViewContainer}  
+                        onPress={this.GetItem.bind(this, rowData.id, rowData.idcurso , rowData.pass)} >
                             -  {rowData.fecha_inicio}
                         </Text>
                     </TouchableOpacity>

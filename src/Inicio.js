@@ -4,7 +4,7 @@ import {  StyleSheet, View, Text,
         Image, ImageBackground,
         TouchableOpacity , } from 'react-native';
 
-import { StackNavigator } from 'react-navigation';
+// import { StackNavigator } from 'react-navigation';
 import CursosList from './CursosList'
         
 export default class InitActivity extends Component {
@@ -18,7 +18,11 @@ export default class InitActivity extends Component {
     
         }
     
-      }
+    }
+    static navigationOptions = 
+    {
+        header: null
+    }
     handlePress = () => {
     // const { TextInputValueHolder }  = this.state ;
     
@@ -42,7 +46,7 @@ export default class InitActivity extends Component {
 
                 <View style = {styles.buttonContainer}>
                     
-                    <Button color="#dc143c" title=" < Ingresar >" onPress={this.handlePress} />
+                    <Button color="#dc143c" title="  <  Ingresar  >  " onPress={this.handlePress} />
                     
                 </View>
 

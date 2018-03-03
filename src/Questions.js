@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { AppRegistry, StyleSheet, ActivityIndicator, 
     ListView, Text, View, 
-    Alert, TextInput, Button, CheckBox } from 'react-native';
+    Alert, TextInput, Button, 
+    CheckBox, ImageBackground } from 'react-native';
 
 
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
@@ -105,13 +106,13 @@ export default class Questions extends Component {
         // Alert.alert( 'Final' ,'Curso o Online , elige' );
         Alert.alert(
             'Info',
-            'Si deseas mas practica puedes ver otro curso, o ir a practicas online.',
+            'Si deseas mas practica puedes ver otro curso, o ir a +practicas-online.',
             [
               {text: '+ Practicas', onPress: () => console.log('Ask me later pressed')},
               
               {text: 'Ver Cursos', onPress: () => this.props.navigation.navigate('CursosList') },
             ],
-            { cancelable: true }
+            { cancelable: false }
           )
         
     }
@@ -191,13 +192,13 @@ export default class Questions extends Component {
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
-            <ActivityIndicator />
+            <ActivityIndicator size="large" />
         </View>
       );
     }
     return (
         
-        <View style={styles.container}>
+        <ImageBackground source={require('./imgs/questions.png') } style={styles.container}>
 
             <View  style={styles.curso}>
                 <Text style={styles.nameCourseText} > 
@@ -253,7 +254,7 @@ export default class Questions extends Component {
                 }
             </View>
 
-        </View>
+        </ImageBackground>
     );
   }
 }
