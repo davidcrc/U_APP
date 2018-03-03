@@ -46,8 +46,19 @@ export default class CursoInfo extends Component {
 
     practicasNav = (idcourse) => {
         
-        // Alert.alert( 'Navegacion hacia las practicas de este curso ', idcourse );
-        this.props.navigation.navigate('Questions', { id: idcourse, num_p: 1, num_int: 0, final: false } );
+        Alert.alert(
+            'Info',
+            'Estas preparado!!',
+            [
+                {text: 'No', onPress: () => console.log('')},
+                
+                {text: 'SI', onPress: () => 
+                    this.props.navigation.navigate('Questions', { id: idcourse, num_p: 1, num_int: 0, final: false } ) 
+                },
+            ],
+            { cancelable: true }
+        )
+        
         
     }
 

@@ -18,8 +18,8 @@ export default class QuestionsOnline extends Component {
             // URL: 'http://192.168.1.250',
             isLoading: true,
             text: '' ,
-            data : '{}' ,
-            idCurrentCourse: '',           
+            datos : this.props.navigation.state.params.data ,
+            idCurrentCourse: this.props.navigation.state.params.nameid,           
             totalQuestions: 0,
             question: '',
             numQuestion: 0,
@@ -31,15 +31,15 @@ export default class QuestionsOnline extends Component {
             Alt3 : '',
             Alt4 : '',
             Alt5 : '',
-            num_pregunta: 1,
-            num_intentos: 0,
-            isfinal: '',
+            num_pregunta: this.props.navigation.state.params.num_p,
+            num_intentos: this.props.navigation.state.params.num_int,
+            isfinal: this.props.navigation.state.params.final,
         }
     }
     static navigationOptions =
     {
         title: 'Preguntas ',
-        
+        header: null
     };
     GetItem (escuela) {
     
@@ -61,22 +61,31 @@ export default class QuestionsOnline extends Component {
             Alert.alert( 'Respuesta Correcta :)', 'Good Job!!' );
             var truefinal = false                
             if ( this.props.navigation.state.params.num_p === this.state.totalQuestions){
-                var truefinal = true
-                Alert.alert( 'Respuesta Final correcta !!', 'Thanks for do it!' );
+                truefinal = true
+                Alert.alert( 'Respuesta Final, correcta !!', 'Thanks for do it!' );
                 
             }
 
-            if( !this.state.isfinal ){
+            if( truefinal){
                 this.props.navigation.navigate('QuestionsOnline', 
                 { 
-                    data: this.state.data,
+                    data: this.state.datos,
+                    nameid: this.state.idCurrentCourse, 
+                    num_p: this.state.num_pregunta ,
+                    num_int : this.state.num_intentos + 1,
+                    final:  true,
+                });
+            }
+            else{
+                this.props.navigation.navigate('QuestionsOnline', 
+                { 
+                    data: this.state.datos,
                     nameid: this.state.idCurrentCourse, 
                     num_p: this.state.num_pregunta + 1,
                     num_int : this.state.num_intentos + 1,
-                    final:  truefinal,
+                    final:  false,
                 });
             }
-
         }
         else{
             // Podria deseleccionarse la opcion q ya selecciono ..
@@ -99,7 +108,7 @@ export default class QuestionsOnline extends Component {
               {text: 'Ver Cursos', onPress: () => this.props.navigation.navigate('CursosList') },
             ],
             { cancelable: true }
-          )
+        )
         
     }
 
@@ -107,35 +116,34 @@ export default class QuestionsOnline extends Component {
 
         // el json_fragment seria el curso para q cargue todas sus preguntas de ese curso (c_biolo)
         // const {data} = this.props.navigation.state.params.Data
-        data = this.props.navigation.state.params.data
+        // data = this.props.navigation.state.params.data
         // num_pregunta = this.state.num_pregunta;
         // currentCourse = this.state.idCurrentCourse
+        const {datos} = this.state
                
-        currentCourse = this.props.navigation.state.params.nameid       // se refiere al nombre: c_biolo
-        
-        num_pregunta = this.props.navigation.state.params.num_p
-        num_intento = this.props.navigation.state.params.num_int
-        finaly = this.props.navigation.state.params.final
-        // var json_fragment = data.Practicas['c_biologia'][num_pregunta]['alternative'][4];
-        var total_q = data.Practicas[currentCourse][0]['total_questions'] ;
-        var numq = data.Practicas[currentCourse][num_pregunta]['num_question'];
-        var name_c = data.Practicas[currentCourse][num_pregunta]['name_course'];
-        var pregunta = data.Practicas[currentCourse][num_pregunta]['question'];
-        var respuesta = data.Practicas[currentCourse][num_pregunta]['response'];
-        var alt0 = data.Practicas[currentCourse][num_pregunta]['alternative'][0];
-        var alt1 = data.Practicas[currentCourse][num_pregunta]['alternative'][1];
-        var alt2 = data.Practicas[currentCourse][num_pregunta]['alternative'][2];
-        var alt3 = data.Practicas[currentCourse][num_pregunta]['alternative'][3];
-        var alt4 = data.Practicas[currentCourse][num_pregunta]['alternative'][4];
+        currentCourse = this.state.idCurrentCourse       //  se refiere al nombre
+        num_pregunta = this.state.num_pregunta
+        // var json_fragment = datos.Practicas['c_biologia'][num_pregunta]['alternative'][4];
+        var total_q = datos.Practicas[currentCourse][0]['total_questions'] ;
+        // var numq = datos.Practicas[currentCourse][num_pregunta]['num_question'];
+        var name_c = datos.Practicas[currentCourse][num_pregunta]['name_course'];
+        var pregunta = datos.Practicas[currentCourse][num_pregunta]['question'];
+        var respuesta = datos.Practicas[currentCourse][num_pregunta]['response'];
+        var alt0 = datos.Practicas[currentCourse][num_pregunta]['alternative'][0];
+        var alt1 = datos.Practicas[currentCourse][num_pregunta]['alternative'][1];
+        var alt2 = datos.Practicas[currentCourse][num_pregunta]['alternative'][2];
+        var alt3 = datos.Practicas[currentCourse][num_pregunta]['alternative'][3];
+        var alt4 = datos.Practicas[currentCourse][num_pregunta]['alternative'][4];
         // console.warn('haber' , json_fragment)
         
             // Alert.alert( 'Json Text',  numq  );
 
         this.setState ({
-            data: data,
+            // data: data,
             idCurrentCourse: currentCourse,
             totalQuestions: total_q,
-            numQuestion: numq,
+            // numQuestion: numq,
+            // num_pregunta: num_pregunta,
             nameCourse : name_c,
             question: pregunta,
             Response: respuesta,
@@ -144,8 +152,8 @@ export default class QuestionsOnline extends Component {
             Alt3: alt2,
             Alt4: alt3,
             Alt5: alt4,
-            num_intentos: num_intento,
-            isfinal: finaly,
+            // num_intentos: num_intento,
+            // isfinal: finaly,
             isLoading: false,
         })
     }
@@ -186,7 +194,7 @@ export default class QuestionsOnline extends Component {
 
             <View  style={styles.curso}>
                 <Text style={styles.nameCourseText} > 
-                    {this.state.numQuestion}/{this.state.totalQuestions}     {this.state.nameCourse} 
+                    {this.state.num_pregunta}/{this.state.totalQuestions}     {this.state.nameCourse} 
                 </Text>
                         
                 <Text style={styles.intentosText} > - intento: {this.state.num_intentos} </Text>
@@ -194,7 +202,7 @@ export default class QuestionsOnline extends Component {
             </View>
             
             <View style={styles.questionContainer} >
-                <Text style={styles.QuestionText}> {this.state.numQuestion}.- {this.state.question} </Text>
+                <Text style={styles.QuestionText}> {this.state.num_pregunta}.- {this.state.question} </Text>
             </View>
             
             <View style={{  height: .6 ,  width: "80%", backgroundColor: "#000",  }} />

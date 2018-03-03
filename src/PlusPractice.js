@@ -37,14 +37,14 @@ export default class PlusPractice extends Component {
             data: this.state.Data, nameid: this.state.namecourse, num_p: 1, num_int: 0, final: false} )
     }
 
-    GetItem (idPractica,idCurso,passP) {
+    GetItem (idPractica,idCurso,passP, fecha) {
 
         // setear la varibale data con el Json de la Bd(consulta con idPractica) y enviarlo a atraves Data
         
         if ( passP === ''){
             this.getDataPractice(idPractica)        
             Alert.alert(
-                'Info',
+                'Info - '+fecha ,
                 'Practica sin Contraseña :\nPresiona aceptar para ir a esta Practica o Cancelar ',
                 [
                   {text: 'Cancelar', onPress: () => console.log('')},
@@ -72,7 +72,7 @@ export default class PlusPractice extends Component {
                 
             }
             else{
-                Alert.alert( "Info", "Contraseña incorreta, Por favor escriba la contraseña correcta!!"  );
+                Alert.alert( "Info : "+fecha , "Contraseña incorreta, Por favor escriba la contraseña correcta!!"  );
                 
             }
         }   
@@ -81,13 +81,11 @@ export default class PlusPractice extends Component {
     getDataPractice (idPractica) {
         // const {text} = this.state
         const { URL }  = this.state ;
-        
-        // let apellido = text
+
         // var json_fragment = data.country.town;
         // console.warn('haber' , json_fragment)
         // idcourse = this.props.navigation.state.params.id
-        // var nameCourse = this.props.navigation.state.params.namecourse
-        // namecurrentcourse = 'c_biologia'
+
         idP = parseInt((idPractica) , 10 )
         
         let getDataPractic = URL+'/app_db/getDataPractice.php?prtc_id='+idP
@@ -107,8 +105,8 @@ export default class PlusPractice extends Component {
 
 
         }).catch((error) => {
-                console.error(error);
-                // Alert.alert("No se pudo obtener conexion al servidor");
+                // console.error(error);
+                Alert.alert("Conexion Fallida", "No se pudo obtener conexion al servidor, revise su conexion de internet!");
                 
         });
     }
@@ -117,13 +115,11 @@ export default class PlusPractice extends Component {
         const {text} = this.state
         const { URL }  = this.state ;
         
-        // let apellido = text
         // var json_fragment = data.country.town;
         // console.warn('haber' , json_fragment)
         idcourse = this.props.navigation.state.params.id
         var nameCourse = this.props.navigation.state.params.namecourse
         // console.warn('haber' , idcourse) 
-        
         
         let getStudents = URL+'/app_db/getPractices.php?prtc_buscar='+idcourse
         return fetch(getStudents)
@@ -143,7 +139,9 @@ export default class PlusPractice extends Component {
                 });
             })
             .catch((error) => {
-                console.error(error);
+                // console.error(error);
+                Alert.alert("Conexion Fallida", "No se pudo obtener conexion al servidor, revise su conexion de internet!");
+                
         });
     }
 
@@ -178,7 +176,7 @@ export default class PlusPractice extends Component {
         <View style = {styles.inputContainer}>
             <Text> *Colocar contraseña : </Text>
             <TextInput
-                // style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                
                 style = {styles.input}
                 placeholder="Si fuera necesario!"
                 onChangeText={this.handleChangeText}
@@ -198,7 +196,7 @@ export default class PlusPractice extends Component {
                 return (
                     <TouchableOpacity>
                         <Text style={styles.rowViewContainer}  
-                        onPress={this.GetItem.bind(this, rowData.id, rowData.idcurso , rowData.pass)} >
+                        onPress={this.GetItem.bind(this, rowData.id, rowData.idcurso , rowData.pass, rowData.fecha_inicio)} >
                             -  {rowData.fecha_inicio}
                         </Text>
                     </TouchableOpacity>

@@ -26,7 +26,7 @@ export default class InitActivity extends Component {
     handlePress = () => {
     // const { TextInputValueHolder }  = this.state ;
     
-        // Alert.alert('Mover a CursosList')
+        // Alert.alert('BETA TESTING', 'Development by Davisof © ®\nComputer Science - AQP')
         this.props.navigation.navigate('CursosList');
         // Actions.home()
     }

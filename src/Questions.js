@@ -5,16 +5,13 @@ import { AppRegistry, StyleSheet, ActivityIndicator,
     Alert, TextInput, Button, 
     CheckBox, ImageBackground } from 'react-native';
 
-
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
-import { StackNavigator } from 'react-navigation';
 import Data from './data/data.json';
 
 export default class Questions extends Component {
     // Setting up profile activity title.
     
-
     constructor(props) {
         
         super(props);
@@ -24,10 +21,10 @@ export default class Questions extends Component {
             isLoading: true,
             text: '' ,
             data : Data,
-            idCurrentCourse: '',           
+            idCurrentCourse: this.props.navigation.state.params.id,           
             totalQuestions: 0,
             question: '',
-            numQuestion: 0,
+            numQuestion: 1,
             nameCourse:'',
             Response: '',
             currentResponse: '',
@@ -36,15 +33,15 @@ export default class Questions extends Component {
             Alt3 : '',
             Alt4 : '',
             Alt5 : '',
-            num_pregunta: 1,
-            num_intentos: 0,
-            isfinal: '',
+            num_pregunta: this.props.navigation.state.params.num_p,
+            num_intentos: this.props.navigation.state.params.num_int,
+            isfinal: this.props.navigation.state.params.final,
         }
     }
     static navigationOptions =
     {
         title: 'Preguntas ',
-        
+        header: null
     };
     GetItem (escuela) {
     
@@ -71,26 +68,34 @@ export default class Questions extends Component {
                 // if(this.props.navigation.state.params.num_p != 1)
 
 
-                // REVISAR LA NAVEGACION  ARA QUE NO REGRESE TAN ATRAS
+                // REVISAR LA NAVEGACION  PARA QUE NO REGRESE TANTO
 
-            Alert.alert( 'Respuesta Correcta :)', 'Good Job!!' );
+            Alert.alert( 'Respuesta Correcta :)', 'Good Job!!');
             var truefinal = false                
-            if ( this.props.navigation.state.params.num_p === this.state.totalQuestions){
-                var truefinal = true
+            if ( this.state.num_pregunta === this.state.totalQuestions){
+                truefinal = true  
                 Alert.alert( 'Respuesta Final correcta !!', 'Thanks for do it!' );
                 
             }
 
-            if( !this.state.isfinal ){
+            if( truefinal){
+                this.props.navigation.navigate('Questions', 
+                { 
+                    id: this.state.idCurrentCourse, 
+                    num_p: this.state.num_pregunta ,
+                    num_int : this.state.num_intentos + 1,
+                    final:  true,
+                });
+            }
+            else{
                 this.props.navigation.navigate('Questions', 
                 { 
                     id: this.state.idCurrentCourse, 
                     num_p: this.state.num_pregunta + 1,
                     num_int : this.state.num_intentos + 1,
-                    final:  truefinal,
+                    final:  false,
                 });
             }
-
         }
         else{
             // Podria deseleccionarse la opcion q ya selecciono ..
@@ -106,9 +111,9 @@ export default class Questions extends Component {
         // Alert.alert( 'Final' ,'Curso o Online , elige' );
         Alert.alert(
             'Info',
-            'Si deseas mas practica puedes ver otro curso, o ir a +practicas-online.',
+            'Si deseas mas practica puedes ver otro curso.',
             [
-              {text: '+ Practicas', onPress: () => console.log('Ask me later pressed')},
+            //   {text: '+ Practicas', onPress: () => console.log('Ask me later pressed')},
               
               {text: 'Ver Cursos', onPress: () => this.props.navigation.navigate('CursosList') },
             ],
@@ -129,13 +134,15 @@ export default class Questions extends Component {
         // num_pregunta = this.state.num_pregunta;
         // currentCourse = this.state.idCurrentCourse
                
-        currentCourse = this.props.navigation.state.params.id       //  se refiere al nombre
-        num_pregunta = this.props.navigation.state.params.num_p
-        num_intento = this.props.navigation.state.params.num_int
-        finaly = this.props.navigation.state.params.final
+        // console.warn("curso actual",currentCourse)
+        // num_pregunta = this.props.navigation.state.params.num_p
+        currentCourse = this.state.idCurrentCourse       //  se refiere al nombre
+        num_pregunta = this.state.num_pregunta
+        // num_intento = this.props.navigation.state.params.num_int
+        // finaly = this.props.navigation.state.params.final
         // var json_fragment = data.Practicas['c_biologia'][num_pregunta]['alternative'][4];
         var total_q = data.Practicas[currentCourse][0]['total_questions'] ;
-        var numq = data.Practicas[currentCourse][num_pregunta]['num_question'];
+        // var numq = data.Practicas[currentCourse][num_pregunta]['num_question'];
         var name_c = data.Practicas[currentCourse][num_pregunta]['name_course'];
         var pregunta = data.Practicas[currentCourse][num_pregunta]['question'];
         var respuesta = data.Practicas[currentCourse][num_pregunta]['response'];
@@ -151,7 +158,8 @@ export default class Questions extends Component {
         this.setState ({
             idCurrentCourse: currentCourse,
             totalQuestions: total_q,
-            numQuestion: numq,
+            // numQuestion: numq,
+            // num_pregunta: num_pregunta,
             nameCourse : name_c,
             question: pregunta,
             Response: respuesta,
@@ -160,8 +168,8 @@ export default class Questions extends Component {
             Alt3: alt2,
             Alt4: alt3,
             Alt5: alt4,
-            num_intentos: num_intento,
-            isfinal: finaly,
+            // num_intentos: num_intento,
+            // isfinal: finaly,
             isLoading: false,
         })
     }
@@ -202,7 +210,7 @@ export default class Questions extends Component {
 
             <View  style={styles.curso}>
                 <Text style={styles.nameCourseText} > 
-                    {this.state.numQuestion}/{this.state.totalQuestions}     {this.state.nameCourse} 
+                    {this.state.num_pregunta}/{this.state.totalQuestions}     {this.state.nameCourse} 
                 </Text>
                         
                 <Text style={styles.intentosText} > - intento: {this.state.num_intentos} </Text>
@@ -210,7 +218,7 @@ export default class Questions extends Component {
             </View>
             
             <View style={styles.questionContainer} >
-                <Text style={styles.QuestionText}> {this.state.numQuestion}.- {this.state.question} </Text>
+                <Text style={styles.QuestionText}> {this.state.num_pregunta}.- {this.state.question} </Text>
             </View>
             
             <View style={{  height: .6 ,  width: "80%", backgroundColor: "#000",  }} />
