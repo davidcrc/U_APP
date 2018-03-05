@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import { AppRegistry, StyleSheet, ActivityIndicator, 
     ListView, Text, View, 
-    Alert, TextInput, TouchableOpacity } from 'react-native';
-
+    Alert, TextInput, Image } from 'react-native';
 
 export default class PlusPractice extends Component {
     // Setting up profile activity title.
@@ -12,7 +11,7 @@ export default class PlusPractice extends Component {
         title: 'Listado de Practicas',
         
     };
-
+    
     constructor(props) {
         // let URL = 'http://192.168.1.250/app_db/User_Login.php'
         super(props);
@@ -37,14 +36,14 @@ export default class PlusPractice extends Component {
             data: this.state.Data, nameid: this.state.namecourse, num_p: 1, num_int: 0, final: false} )
     }
 
-    GetItem (idPractica,idCurso,passP, fecha) {
+    GetItem (idPractica,idCurso,passP, nombrePract) {
 
-        // setear la varibale data con el Json de la Bd(consulta con idPractica) y enviarlo a atraves Data
+        // TAL VEX DEBO QUITAR idCurso , no me sirve
         
         if ( passP === ''){
             this.getDataPractice(idPractica)        
             Alert.alert(
-                'Info - '+fecha ,
+                'Info - '+nombrePract ,
                 'Practica sin Contraseña :\nPresiona aceptar para ir a esta Practica o Cancelar ',
                 [
                   {text: 'Cancelar', onPress: () => console.log('')},
@@ -72,7 +71,7 @@ export default class PlusPractice extends Component {
                 
             }
             else{
-                Alert.alert( "Info : "+fecha , "Contraseña incorreta, Por favor escriba la contraseña correcta!!"  );
+                Alert.alert( "Info : "+nombrePract , "Contraseña incorreta, Por favor escriba la contraseña correcta!!"  );
                 
             }
         }   
@@ -161,6 +160,7 @@ export default class PlusPractice extends Component {
     handleChangeText = (text) => this.setState({text})
     
     render() {
+    // const DEFAULT_AVATAR = 'https://image.flaticon.com/icons/png/128/149/149452.png'
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
@@ -192,20 +192,16 @@ export default class PlusPractice extends Component {
 
             renderSeparator= {this.ListViewItemSeparator}
 
-            renderRow={(rowData) => { 
-                return (
-                    <TouchableOpacity>
-                        <Text style={styles.rowViewContainer}  
-                        onPress={this.GetItem.bind(this, rowData.id, rowData.idcurso , rowData.pass, rowData.fecha_inicio)} >
-                            -  {rowData.fecha_inicio}
-                        </Text>
-                    </TouchableOpacity>
-                    
-                    
-                )
-            }}
+            renderRow={(rowData) => ( 
+                <View style={styles.practice}>
+                    <Image style={styles.checkPractice} source={require('./imgs/check.png')} /> 
+                     <Text style={styles.rowViewContainer}  
+                    onPress={this.GetItem.bind(this, rowData.id, rowData.idcurso , rowData.pass, rowData.nom_practica)} >
+                        {rowData.nom_practica} -> {rowData.fecha_inicio}
+                    </Text>
+                </View>
+            )}            
         />
-
       </View>
     );
   }
@@ -244,6 +240,21 @@ const styles = StyleSheet.create({
         // height: 50,
         // backgroundColor: 'gray',
         flex: 1,
+    },
+    checkPractice: {
+        width: 18,
+        height: 18,
+        borderRadius: 18/2,
+        margin: 10,
+        
+    },
+    practice: {
+        backgroundColor: '#ecf0f1',
+        // padding: 5,
+        // margin: 5,
+        borderRadius: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 
 });

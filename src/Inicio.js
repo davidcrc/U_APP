@@ -4,7 +4,6 @@ import {  StyleSheet, View, Text,
         Image, ImageBackground,
         TouchableOpacity , } from 'react-native';
 
-// import { StackNavigator } from 'react-navigation';
 import CursosList from './CursosList'
         
 export default class InitActivity extends Component {
@@ -26,7 +25,7 @@ export default class InitActivity extends Component {
     handlePress = () => {
     // const { TextInputValueHolder }  = this.state ;
     
-        // Alert.alert('BETA TESTING', 'Development by Davisof © ®\nComputer Science - AQP')
+        Alert.alert('BETA TESTING', 'Development by DaviD ©.®.\nComputer Science - UNSA - AQP')
         this.props.navigation.navigate('CursosList');
         // Actions.home()
     }
